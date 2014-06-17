@@ -13,7 +13,7 @@ import be.vdab.services.EuroService;
 
 @Controller
 @RequestMapping("euro")
-public class EuroController {
+class EuroController {
 	private final EuroService euroService;
 
 	@Autowired

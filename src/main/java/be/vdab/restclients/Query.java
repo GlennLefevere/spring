@@ -6,6 +6,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Query {
+class Query {
 	Results results;
 }
