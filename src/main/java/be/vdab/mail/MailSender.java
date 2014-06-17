@@ -1,5 +1,7 @@
 package be.vdab.mail;
 
-public interface MailSender {
+import be.vdab.entities.Filiaal;
 
+public interface MailSender {
+	void nieuwFiliaalMail(Filiaal filiaal);
 }

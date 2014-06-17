@@ -7,16 +7,19 @@ import org.springframework.transaction.annotation.Transactional;
 import be.vdab.dao.FiliaalDAO;
 import be.vdab.entities.Filiaal;
 import be.vdab.exceptions.FiliaalHeeftNogWerknemersException;
+import be.vdab.mail.MailSender;
 import be.vdab.valueobjects.PostcodeReeks;
 
 @Service
 @Transactional(readOnly = true)
 class FiliaalServiceImpl implements FiliaalService {
 	private final FiliaalDAO filiaalDAO;
-
+	private final MailSender mailSender;
+	
 	@Autowired
-	FiliaalServiceImpl(FiliaalDAO filiaalDAO) {
+	FiliaalServiceImpl(FiliaalDAO filiaalDAO, MailSender mailSender) {
 		this.filiaalDAO = filiaalDAO;
+		this.mailSender = mailSender;
 	}
 
 	@Override
