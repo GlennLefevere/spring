@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityLinks;
+import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.hateoas.Link;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -29,6 +30,7 @@ import be.vdab.services.FiliaalService;
 
 @RestController
 @RequestMapping("/filialen")
+@ExposesResourceFor(Filiaal.class)
 public class FiliaalRestController {
 	private final FiliaalService filiaalService;
 	private final EntityLinks entityLinks;

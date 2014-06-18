@@ -1,6 +1,7 @@
 package be.vdab.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,8 +29,8 @@ class FiliaalServiceImpl implements FiliaalService {
 	@Override
 	@Transactional(readOnly = true)
 	public void create(Filiaal filiaal) {
-		//System.out.println(common.getEntityLinks().linkForSingleResource(Filiaal.class, filiaal.getId()));
 		filiaal.setId(filiaalDAO.save(filiaal).getId());
+		System.out.println(common.getEntityLinks().linkForSingleResource(Filiaal.class, filiaal.getId()));
 		mailSender.nieuwFiliaalMail(filiaal, common.getEntityLinks().linkForSingleResource(Filiaal.class, filiaal.getId()).toString());
 	}
 
@@ -73,5 +74,11 @@ class FiliaalServiceImpl implements FiliaalService {
 
 	public MailSender getMailSender() {
 		return mailSender;
+	}
+
+	@Override
+	@Scheduled(cron = "0 18 10 15 * ?")
+	public void aantalFilialenMail() {
+		mailSender.aantalFilialenMail(filiaalDAO.count());
 	}
 }

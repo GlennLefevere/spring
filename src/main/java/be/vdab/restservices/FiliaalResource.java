@@ -16,7 +16,6 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 @XmlAccessorType(XmlAccessType.FIELD)
 @JsonAutoDetect(fieldVisibility = Visibility.ANY)
 class FiliaalResource extends ResourceSupport {
-	@SuppressWarnings("unused")
 	private Filiaal filiaal;
 
 	FiliaalResource() { // JAXB heeft een default constructor nodig

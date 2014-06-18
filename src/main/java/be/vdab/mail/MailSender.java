@@ -4,4 +4,5 @@ import be.vdab.entities.Filiaal;
 
 public interface MailSender {
 	void nieuwFiliaalMail(Filiaal filiaal, String url);
+	void aantalFilialenMail(long aantal);
 }

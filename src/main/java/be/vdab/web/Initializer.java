@@ -7,7 +7,6 @@ import javax.servlet.ServletRegistration.Dynamic;
 
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
-import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import be.vdab.commons.CreateCommonBeans;
@@ -16,13 +15,14 @@ import be.vdab.datasource.CreateDataSourceBean;
 import be.vdab.mail.CreateMailBeans;
 import be.vdab.restclients.CreateRestClientBeans;
 import be.vdab.restservices.CreateRestControllerBeans;
+import be.vdab.security.CreateSecurityBeans;
 import be.vdab.services.CreateServiceBeans;
 
 public class Initializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class<?>[] { CreateDataSourceBean.class, CreateDAOBeans.class, CreateServiceBeans.class, CreateRestClientBeans.class, CreateMailBeans.class, CreateCommonBeans.class };
+		return new Class<?>[] { CreateDataSourceBean.class, CreateDAOBeans.class, CreateServiceBeans.class, CreateRestClientBeans.class, CreateMailBeans.class, CreateCommonBeans.class, CreateSecurityBeans.class };
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class Initializer extends AbstractAnnotationConfigDispatcherServletInitia
 	protected Filter[] getServletFilters() {
 		CharacterEncodingFilter utf8Filter = new CharacterEncodingFilter();
 		utf8Filter.setEncoding("UTF-8");
-		return new Filter[] { utf8Filter, new OpenEntityManagerInViewFilter(), new HiddenHttpMethodFilter() };
+		return new Filter[] { utf8Filter, new OpenEntityManagerInViewFilter() };
 	}
 
 	@Override

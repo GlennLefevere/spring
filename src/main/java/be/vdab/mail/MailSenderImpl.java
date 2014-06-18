@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import be.vdab.entities.Filiaal;
@@ -19,7 +20,6 @@ public class MailSenderImpl implements MailSender {
 	private final Logger logger = Logger.getLogger(this.getClass().getName());
 	private final JavaMailSender sender;
 	private final String webmaster;
-	//private final EntityLinks entityLinks; // wordt later gebruikt
 
 	@Autowired
 	public MailSenderImpl(JavaMailSender sender, @Value("${webmaster}") String webmaster) {
@@ -28,6 +28,7 @@ public class MailSenderImpl implements MailSender {
 	}
 
 	@Override
+	@Async
 	public void nieuwFiliaalMail(Filiaal filiaal, String url) {
 		try {
 			MimeMessage message = sender.createMimeMessage();
@@ -38,6 +39,20 @@ public class MailSenderImpl implements MailSender {
 			sender.send(message);
 		} catch (MessagingException ex) {
 			logger.log(Level.SEVERE, "kan mail nieuw filiaal niet versturen", ex);
+		}
+	}
+
+	@Override
+	public void aantalFilialenMail(long aantal) {
+		try {
+			MimeMessage message = sender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message);
+			helper.setTo(webmaster);
+			helper.setSubject("Aantal filialen");
+			helper.setText(String.format("Er zijn <strong>%d</strong> filialen.", aantal), true);
+			sender.send(message);
+		} catch (MessagingException ex) {
+			logger.log(Level.SEVERE, "kan mail aantal filialen niet versturen", ex);
 		}
 	}
 }

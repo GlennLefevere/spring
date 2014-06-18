@@ -8,10 +8,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 @Configuration
 @ComponentScan(basePackageClasses = CreateMailBeans.class)
 @PropertySource("classpath:/mailServer.properties")
+@EnableAsync
 public class CreateMailBeans {
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
@@ -22,7 +24,7 @@ public class CreateMailBeans {
 	@Autowired
 	public JavaMailSenderImpl javaMailSenderImpl(@Value("${mailserver.host}") String host, @Value("${mailserver.port}") int port, @Value("${mailserver.protocol}") String protocol, @Value("${mailserver.username}") String username, @Value("${mailserver.password}") String password) {
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-		System.out.println(host + " " + port + " " + protocol + " " + username + " " + password);
+		//System.out.println(host + " " + port + " " + protocol + " " + username + " " + password);
 		mailSender.setHost(host);
 		mailSender.setPort(port);
 		mailSender.setProtocol(protocol);

@@ -11,4 +11,5 @@ public interface FiliaalService {
 	Iterable<Filiaal> findAll();
 	long findAantalFilialen();
 	Iterable<Filiaal> findByPostcodeReeks(PostcodeReeks reeks);
+	public void aantalFilialenMail();
 }
