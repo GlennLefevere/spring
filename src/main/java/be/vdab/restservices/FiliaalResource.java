@@ -22,6 +22,10 @@ class FiliaalResource extends ResourceSupport {
 	FiliaalResource() { // JAXB heeft een default constructor nodig
 	}
 
+	public Filiaal getFiliaal() {
+		return filiaal;
+	}
+
 	FiliaalResource(Filiaal filiaal, EntityLinks entityLinks) {
 		this.filiaal = filiaal;
 		this.add(entityLinks.linkToSingleResource(Filiaal.class, filiaal.getId()));

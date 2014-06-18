@@ -11,7 +11,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 @Configuration
 @ComponentScan(basePackageClasses = CreateMailBeans.class)
-@PropertySource("classpath:/mail.properties")
+@PropertySource("classpath:/mailServer.properties")
 public class CreateMailBeans {
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
@@ -22,6 +22,7 @@ public class CreateMailBeans {
 	@Autowired
 	public JavaMailSenderImpl javaMailSenderImpl(@Value("${mailserver.host}") String host, @Value("${mailserver.port}") int port, @Value("${mailserver.protocol}") String protocol, @Value("${mailserver.username}") String username, @Value("${mailserver.password}") String password) {
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+		System.out.println(host + " " + port + " " + protocol + " " + username + " " + password);
 		mailSender.setHost(host);
 		mailSender.setPort(port);
 		mailSender.setProtocol(protocol);

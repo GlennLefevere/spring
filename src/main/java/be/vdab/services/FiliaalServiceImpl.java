@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import be.vdab.commons.Common;
 import be.vdab.dao.FiliaalDAO;
 import be.vdab.entities.Filiaal;
 import be.vdab.exceptions.FiliaalHeeftNogWerknemersException;
@@ -15,17 +16,21 @@ import be.vdab.valueobjects.PostcodeReeks;
 class FiliaalServiceImpl implements FiliaalService {
 	private final FiliaalDAO filiaalDAO;
 	private final MailSender mailSender;
-	
+	private final Common common;
+
 	@Autowired
-	FiliaalServiceImpl(FiliaalDAO filiaalDAO, MailSender mailSender) {
+	FiliaalServiceImpl(FiliaalDAO filiaalDAO, MailSender mailSender, Common common) {
 		this.filiaalDAO = filiaalDAO;
 		this.mailSender = mailSender;
+		this.common = common;
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public void create(Filiaal filiaal) {
-		filiaalDAO.save(filiaal);
+		//System.out.println(common.getEntityLinks().linkForSingleResource(Filiaal.class, filiaal.getId()));
+		filiaal.setId(filiaalDAO.save(filiaal).getId());
+		mailSender.nieuwFiliaalMail(filiaal, common.getEntityLinks().linkForSingleResource(Filiaal.class, filiaal.getId()).toString());
 	}
 
 	@Override
@@ -58,11 +63,15 @@ class FiliaalServiceImpl implements FiliaalService {
 
 	@Override
 	public long findAantalFilialen() {
-		return filiaalDAO.count();//filiaalDAO.findAantalFilialen();
+		return filiaalDAO.count();// filiaalDAO.findAantalFilialen();
 	}
 
 	@Override
 	public Iterable<Filiaal> findByPostcodeReeks(PostcodeReeks reeks) {
 		return filiaalDAO.findByAdresPostcodeBetweenOrderByNaamAsc(reeks.getVanpostcode(), reeks.getTotpostcode());
+	}
+
+	public MailSender getMailSender() {
+		return mailSender;
 	}
 }

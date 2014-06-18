@@ -17,6 +17,14 @@ class FiliaalNrNaam {
 	@XmlAttribute
 	private String naam;
 
+	public long getId() {
+		return id;
+	}
+
+	public String getNaam() {
+		return naam;
+	}
+
 	FiliaalNrNaam() {
 	} // JAXB heeft een default constructor nodig
 
