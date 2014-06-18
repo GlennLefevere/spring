@@ -4,9 +4,13 @@
 <nav>
 	<ul>
 		<li><a href="<c:url value='/filialen'/>">Filialen</a></li>
-		<li><a href="<c:url value='/filialen/toevoegen'/>">Filiaal toevoegen</a></li>
+		<security:authorize url='/filialen/toevoegen'>
+			<li><a href="<c:url value='/filialen/toevoegen'/>">Filiaal toevoegen</a></li>
+		</security:authorize>
 		<li><a href="<c:url value='/filialen/perpostcode'/>">Filialen per postcode</a></li>
-		<li><a href="<c:url value='/werknemers'/>">Werknemers</a></li>
+		<security:authorize url='/werknemers'>
+			<li><a href="<c:url value='/werknemers'/>">Werknemers</a></li>
+		</security:authorize>
 		<li><a href="<c:url value='/offertes/aanvraag'/>">Aanvraag offerte</a></li>
 		<li><a href="<c:url value='/'/>">Welkom</a></li>
 		<c:url value='' var='nederlandsURL'>
@@ -17,12 +21,16 @@
 			<c:param name='locale' value='en_us' />
 		</c:url>
 		<li><a href='${engelsURL}'>Engels</a></li>
-		<li><a href="<c:url value='/login'/>">Aanmelden</a></li>
-		<li>
-			<form method='post' action='<c:url value="/logout"/>' id='logoutform'>
-				<input type='submit' value='Uitloggen' id='logoutbutton'>
-				<security:csrfInput />
-			</form>
-		</li>
+		<security:authorize access='isAnonymous()'>
+			<li><a href="<c:url value='/login'/>">Aanmelden</a></li>
+		</security:authorize>
+		<security:authorize access="isAuthenticated()">
+			<li>
+				<form method='post' action='<c:url value="/logout"/>' id='logoutform'>
+					<input type='submit' value='<security:authentication property="name"/> afmelden' id='logoutbutton'>
+					<security:csrfInput />
+				</form>
+			</li>
+		</security:authorize>
 	</ul>
 </nav>
