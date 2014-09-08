@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.Embeddable;
+import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -26,7 +27,9 @@ public class Offerte implements Serializable {
 	public interface Stap2 {
 	}
 
+	@Transient
 	private Map<Gazontype, Boolean> gazontypes = new LinkedHashMap<>();
+	@Transient
 	private List<String> telefoonNrs = new ArrayList<>();
 	@NotNull(groups = Stap1.class)
 	@NotBlank(groups = Stap1.class)
