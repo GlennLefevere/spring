@@ -23,7 +23,7 @@ public class FiliaalDAOImplTest {
 	private FiliaalDAO filiaalDAO;
 
 	@Test
-	public void create() {
+	public void kreate() {
 		Filiaal filiaal = new Filiaal("TestNaam", true, BigDecimal.ONE, new Date(), new Adres("Straat", "HuisNr", 1000, "Gemeente"));
 		filiaalDAO.save(filiaal);
 		Assert.assertNotEquals(0, filiaal.getId());
