@@ -16,7 +16,12 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 
 import be.vdab.enums.Gazontype;
-
+/**
+ * Een offerte voor een gazon
+ * 
+ * @author glenn
+ *
+ */
 @Embeddable
 public class Offerte implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -45,7 +50,6 @@ public class Offerte implements Serializable {
 	@NotNull(groups = Stap2.class)
 	@Min(value = 1, groups = Stap2.class)
 	private Integer oppervlakte;
-
 	public Offerte() {
 		for (Gazontype gazontype : Gazontype.values()) {
 			gazontypes.put(gazontype, false);
@@ -80,7 +84,11 @@ public class Offerte implements Serializable {
 	public Integer getOppervlakte() {
 		return oppervlakte;
 	}
-
+/**
+ * De oppervlakte van het gazon instellen
+ * 
+ * @param oppervlakte de oppervlakte van het gazon
+ */
 	public void setOppervlakte(Integer oppervlakte) {
 		this.oppervlakte = oppervlakte;
 	}
