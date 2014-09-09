@@ -28,10 +28,10 @@ public class FiliaalDAOImplTest {
 		filiaalDAO.save(filiaal);
 		Assert.assertNotEquals(0, filiaal.getId());
 	}
-	@Test
+	/*@Test
 	public void delete(){
 		Filiaal filiaal = new Filiaal("TestNaam", true, BigDecimal.ONE, new Date(), new Adres("Straat", "HuisNr", 1000, "Gemeente"));
 		filiaalDAO.save(filiaal);
 		filiaalDAO.delete(0L);
-	}
+	}*/
 }
