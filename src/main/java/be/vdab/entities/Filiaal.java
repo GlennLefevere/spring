@@ -110,7 +110,7 @@ public class Filiaal {
 	}
 
 	public Date getInGebruikName() {
-		return inGebruikName;
+		return (Date) inGebruikName.clone();
 	}
 
 	public void setInGebruikName(Date inGebruikName) {
